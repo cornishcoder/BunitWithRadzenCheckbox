@@ -1,0 +1,30 @@
+﻿@page "/counter"
+
+<h1>Counter</h1>
+
+<p id="currentCount">Current count: @currentCount</p>
+
+<RadzenCheckBox id="checkBox1" @bind-Value="@checkBox1Value" Style="margin-bottom: 20px" TValue="bool" Change="@(args => Change(args, "CheckBox1 CheckBox"))" />
+<RadzenLabel Text="Disable button" Component="CheckBox1" Style="margin-left: 5px;margin-bottom: 20px" />
+<br />
+<button id="button" class="btn btn-primary @disabledText" @onclick="IncrementCount" >Click me</button>
+
+@code {
+    private int currentCount = 0;
+    private bool checkBox1Value;
+    private string disabledText = "";
+
+    private void IncrementCount()
+    {
+        if (!checkBox1Value)
+        {
+            currentCount++;
+        }
+    }
+
+    private void Change(bool value, string name)
+    {
+        disabledText = value ? "disabled" : "";
+        StateHasChanged();
+    }
+}
